@@ -21,15 +21,130 @@ function throttle(func, ms) {
   }
   return wrapper;
 }
-let game1 = throttle(gameLoop, 200);
+let game1 = throttle(gameLoop, 500);
 function start() {
-  pannel.setPannel(0);
-  document.getElementById("root").style.display = "";
   game1();
 }
 let lastTime = 0;
 
 function gameLoop() {
-  controller.update();
+  game.update();
   requestAnimationFrame(gameLoop);
+}
+
+function draw(img, x, y, width, height) {
+  img = document.getElementById(img);
+  ctx.drawImage(img, x, y, width, height);
+}
+function move({ x, y }, speed) {
+  x += 2 * speed;
+  y += 0.2;
+  return { x, y };
+}
+function screenSize() {
+  let width, height, n;
+  width = document.documentElement.clientWidth;
+  height = document.documentElement.clientHeight;
+  if (width < height) {
+    height /= 2;
+  }
+  return { width, height };
+  // if (width < height) {
+  //     height /= 2;
+  //     n = 2;
+  // }
+  // loading.style.width = width + "px";
+  // loading.style.height = height + "px";
+
+  // root.style.width = width + "px";
+  // root.style.height = height + "px";
+
+  // canvas.style.width = width + "px";
+  // canvas.style.height = height + "px";
+
+  // for (let i = 0; i < notesPositions.length; i++) {
+  //     notesPositions[i] = notesPositions[i].map(function (x) {
+  //         x[0] *= n;
+  //         x[1] *= 2;
+  //         return x;
+  //     });
+  // }
+}
+function close1(x, arg) {
+  let needle = x;
+  let arr = arg.filter(el => el[2] !== 0);
+  if (!arr.length) {
+    return;
+  }
+  let closest = arr.reduce((a, b) => {
+    return Math.abs(b[0] - needle) < Math.abs(a[0] - needle) ? b : a;
+  });
+  return closest;
+}
+function detectCollision({ x, y }, note) {
+  if (Array.isArray(note)) {
+    let noteX = note[0];
+    let noteY = note[1];
+    let collX = x >= noteX - 100 && x <= noteX + 150;
+    let collY = y >= noteY - 75 && y <= noteY + 75;
+    let value;
+    console.log(collX);
+    console.log(collY);
+    collX && collY ? (value = true) : (value = false);
+    return value;
+  } else {
+    return false;
+  }
+}
+function addInputs(game) {
+  document.addEventListener(
+    "keydown",
+    event => {
+      switch (event.keyCode) {
+        case 38:
+          game.moveY("+");
+          break;
+        case 40:
+          game.moveY("-");
+          break;
+        // case 32:
+        //   controller.isStarted = !controller.isStarted;
+        //   break;
+        // case 13:
+        //   controller.isStarted = !controller.isStarted;
+        //   break;
+        default:
+          break;
+      }
+    },
+    {
+      passive: true
+    }
+  );
+  //   document.addEventListener(
+  //     "touchstart",
+  //     event => {
+  //       let height = document.documentElement.clientHeight;
+  //       let touchY = event.targetTouches[0].clientY;
+  //       let middle = height / 2;
+  //       touchY >= middle ? plane.moveY("-") : plane.moveY("+");
+  //       controller.isStarted = true;
+  //     },
+  //     { passive: true }
+  //   );
+}
+function play(note) {
+  let id = uniq.indexOf(note);
+  let doc = document.getElementById("s" + id);
+  doc.muted = false;
+  doc.play();
+}
+function pause(note) {
+  if (!!note) {
+    let id = uniq.indexOf(note);
+    let doc = document.getElementById("s" + id);
+    doc.currentTime = 0;
+    doc.muted = true;
+    doc.pause();
+  }
 }

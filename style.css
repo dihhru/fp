@@ -1,0 +1,8 @@
+.pannel {
+  top: 0px;
+  z-index: -1;
+  width: 3600px;
+  overflow: hidden;
+  height: 860px;
+  display: none;
+}
