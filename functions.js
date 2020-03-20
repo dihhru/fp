@@ -148,3 +148,14 @@ function pause(note) {
     doc.pause();
   }
 }
+function show(lvl, resolve) {
+  img = document.getElementById(authors[lvl]);
+  clone = img.cloneNode();
+  clone.className = "author";
+  root.appendChild(clone);
+  setTimeout(() => clone.classList.add("authorA"), 500);
+  setTimeout(() => {
+    root.removeChild(clone);
+    resolve();
+  }, 3500);
+}
