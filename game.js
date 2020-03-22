@@ -29,8 +29,7 @@ class Game {
     }
     this.notesPosition = arr;
   }
-  initLevel(lvl = this.level) {
-    level(lvl);
+  initLevel(lvl = this.level) {;
     this.notes = JSON.parse(JSON.stringify(this.notesPosition[lvl]));
     this.score = this.notes.length;
     this.border = this.notes[this.notes.length - 1][0];

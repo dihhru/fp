@@ -2,6 +2,7 @@ function loadImages(resolve, reject) {
   let res = resolve;
   let bg = document.getElementById("res");
   let length = 4 + 3 + 1 + uniq.length + authors.length + authors.length
+  alert(length)
   let sum = 0;
   let timer = setInterval(() => {
     let prog = 100/length*sum+'%'
@@ -51,6 +52,7 @@ function loadImages(resolve, reject) {
   bg.appendChild(plane);
   let i4 = 0 
   while (i4<authors.length) {
+    let author = authors[i4];
     let img = document.createElement("img");
     img.id = author;
     img.src = `images/authors/${author}.gif`;
@@ -64,6 +66,7 @@ function loadImages(resolve, reject) {
     pannel.onload = () => sum++
     bg.appendChild(img);
     bg.appendChild(pannel);
+    i4++
   }
 }
 
