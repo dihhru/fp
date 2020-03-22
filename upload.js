@@ -7,7 +7,7 @@ function loadImages(resolve, reject) {
     console.log(sum);
     if (sum === length) {
       clearInterval(timer);
-      setTimeout(() => res(), 5000);
+      setTimeout(() => res(),14445000);
       console.log("loaded images");
     }
   }, 500);
