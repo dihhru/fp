@@ -15,9 +15,32 @@
   transition: 2s ease-in-out;
   position: absolute;
   z-index: 100;
-  top: calc(50%-150px);
+  bottom: 0px;
   left: calc(50% - 100px);
 }
 .authorA {
-  transform: scale(1.4);
+  bottom: calc(50% - 150px);
+  transform: scale(1.8);
+}
+.object {
+  z-index: 10000;
+  width: 5%;
+  transition: 0s;
+}
+#restart:hover {
+  transform: rotate(360deg);
+  transition: 0.5s linear;
+}
+#tools {
+  height: 60px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
 }

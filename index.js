@@ -2,19 +2,29 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const bg = document.getElementById("res");
 const root = document.getElementById("root");
+const tools = document.getElementById("tools");
+const loading = document.getElementById("loading");
+const app = document.getElementById("app");
 let size = screenSize();
 let game = new Game(size, notesPositions);
 addInputs(game);
-let prepare = async function() {
-  let images, audio;
+let prepare = async function({ width, height }) {
+  loading.style.width = width + "px";
+  loading.style.height = height + "px";
+  let images;
   let imagesP = new Promise((resolve, reject) => loadImages(resolve, reject));
-  let audioP = new Promise((resolve, reject) => loadAudio(resolve, reject));
-  audio = await audioP;
   images = await imagesP;
-  return images + audio;
+  return images;
 };
-prepare()
+
+prepare(size)
   .then(x => game.adjust())
+  .then(x => {
+    app.style.display = "";
+    loading.style.display = "none";
+  })
   .then(x => game.initLevel())
   .then(x => start())
   .catch(e => alert(e));
+create("restart", game.initLevel);
+create("speed1", game.setSpeed);

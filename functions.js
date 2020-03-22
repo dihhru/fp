@@ -107,12 +107,12 @@ function addInputs(game) {
         case 40:
           game.moveY("-");
           break;
-        // case 32:
-        //   controller.isStarted = !controller.isStarted;
-        //   break;
-        // case 13:
-        //   controller.isStarted = !controller.isStarted;
-        //   break;
+        case 32:
+          game.isPaused = !game.isPaused;
+          break;
+        case 13:
+          game.isPaused = !game.isPaused;
+          break;
         default:
           break;
       }
@@ -158,4 +158,17 @@ function show(lvl, resolve) {
     root.removeChild(clone);
     resolve();
   }, 3500);
+}
+
+function create(name, func) {
+  console.log(func);
+  let object = document.createElement("img");
+  object.className = "object";
+  object.id = name;
+  object.src = `images/other/${name}.png`;
+  object.ontouchstart = e => {
+    e.stopPropagation();
+  };
+  object.onclick = () => func();
+  tools.appendChild(object);
 }

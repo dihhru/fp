@@ -4,12 +4,15 @@ class Game {
     this.width = width;
     this.height = height;
     this.level = 0;
-    this.pos = { x: 0, y: 0 };
+    this.pos = { x: 0, y: 150 };
+    this.speed = 1;
     this.score = null;
     this.notes = null;
     this.prevSound = null;
     this.border = null;
     this.isPaused = false;
+    this.initLevel = this.initLevel.bind(this);
+    this.setSpeed = this.setSpeed.bind(this);
   }
   adjust() {
     canvas.style.width = this.width;
@@ -25,9 +28,8 @@ class Game {
       });
     }
     this.notesPosition = arr;
-    console.log(this);
   }
-  initLevel(lvl = 0) {
+  initLevel(lvl = this.level) {
     level(lvl);
     this.notes = JSON.parse(JSON.stringify(this.notesPosition[lvl]));
     this.score = this.notes.length;
@@ -48,6 +50,15 @@ class Game {
       }
     );
   }
+  setSpeed() {
+    this.speed == 3 ? (this.speed = 1) : this.speed++;
+    let speed = document.getElementById("speed1");
+    speed.src = `images/other/speed${this.speed}.png`;
+  }
+  crash() {
+    document.getElementById("crash").play();
+    this.pos.y = 150;
+  }
   update() {
     if (!this.isPaused) {
       let { x, y } = this.pos;
@@ -65,7 +76,7 @@ class Game {
           draw(img, x, y, 50, 75);
         }
       });
-      this.pos = move({ x, y }, 5);
+      this.pos = move({ x, y }, this.speed);
       let closest = close1(x, this.notes);
       let isPlay = detectCollision({ x, y }, closest);
       if (isPlay) {
@@ -79,9 +90,13 @@ class Game {
       }
       ctx.setTransform(1, 0, 0, 1, 0, 0); //reset the transform matrix as it is cumulative
       ctx.translate(-x, 0);
-      if (x === this.border) {
+      if (x >= this.border) {
         this.isPaused = true;
         this.score <= 3 ? this.levelUp() : this.initLevel(this.level);
+      }
+      if (y < 0 || y > 600) {
+        this.crash();
+        this.y = 300;
       }
     }
   }
