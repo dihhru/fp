@@ -45,8 +45,16 @@
   background-color: black;
 }
 .bar  {
-  width:50px;
-  height:10px;
+width:20%;
+  height:100%;
   z-index:10000;
 
+}
+.progress  {
+  position:absolute;
+  bottom:0px;
+  left:0px;
+  height:10px;
+  width:100%;
+  z-index:1000;
 }

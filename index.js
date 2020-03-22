@@ -5,6 +5,7 @@ const root = document.getElementById("root");
 const tools = document.getElementById("tools");
 const loading = document.getElementById("loading");
 const app = document.getElementById("app");
+const bar = document.getElementById("bar");
 let size = screenSize();
 let game = new Game(size, notesPositions);
 addInputs(game);
