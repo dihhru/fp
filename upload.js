@@ -4,10 +4,11 @@ function loadImages(resolve, reject) {
   let length = 4 + 3 + 1 + uniq.length;
   let sum = 0;
   let timer = setInterval(() => {
-    console.log(sum);
+    let prog = 100/length*sum+'%'
+     document.getElementById("bar").style.width=prog
     if (sum === length) {
       clearInterval(timer);
-      setTimeout(() => res(),14445000);
+      res()
       console.log("loaded images");
     }
   }, 500);
