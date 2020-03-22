@@ -1,7 +1,7 @@
 function loadImages(resolve, reject) {
   let res = resolve;
   let bg = document.getElementById("res");
-  let length = 4 + 3 + 1 + uniq.length;
+  let length = 4 + 3 + 1 + uniq.length + authors.length + authors.length
   let sum = 0;
   let timer = setInterval(() => {
     let prog = 100/length*sum+'%'
@@ -49,20 +49,21 @@ function loadImages(resolve, reject) {
   plane.src = "images/other/plane.png";
   plane.onload = () => sum++;
   bg.appendChild(plane);
+  let i4 = 0 
+  while (i4<authors.length) {
+    let img = document.createElement("img");
+    img.id = author;
+    img.src = `images/authors/${author}.gif`;
+    img.width = "200";
+    img.height = "300";
+    img.onload  = ()=> sum++
+    let pannel = document.createElement("img");
+    pannel.id = `${author}_pannel`;
+    pannel.src = `images/pannels/${author}_pannel.png`;
+    pannel.className = "pannel";
+    pannel.onload = () => sum++
+    bg.appendChild(img);
+    bg.appendChild(pannel);
+  }
 }
 
-function level(level) {
-  let i = level;
-  let author = authors[i];
-  let img = document.createElement("img");
-  img.id = author;
-  img.src = `images/authors/${author}.gif`;
-  img.width = "200";
-  img.height = "300";
-  let pannel = document.createElement("img");
-  pannel.id = `${author}_pannel`;
-  pannel.src = `images/pannels/${author}_pannel.png`;
-  pannel.className = "pannel";
-  bg.appendChild(img);
-  bg.appendChild(pannel);
-}
