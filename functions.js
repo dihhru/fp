@@ -37,7 +37,7 @@ function draw(img, x, y, width, height) {
   ctx.drawImage(img, x, y, width, height);
 }
 function move({ x, y }, speed) {
-  x += 2 * speed;
+  x += 3 * speed;
   y += 0.2;
   return { x, y };
 }
