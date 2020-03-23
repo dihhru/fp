@@ -8,6 +8,7 @@ const app = document.getElementById("app");
 const bar = document.getElementById("bar");
 let size = screenSize();
 let game = new Game(size, notesPositions);
+let n = fetch("/images/other/speed1.png").then(()=>alert('ok'))
 addInputs(game);
 let prepare = async function({ width, height }) {
   loading.style.width = width + "px";

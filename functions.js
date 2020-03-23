@@ -88,8 +88,7 @@ function detectCollision({ x, y }, note) {
     let collX = x >= noteX - 100 && x <= noteX + 150;
     let collY = y >= noteY - 75 && y <= noteY + 75;
     let value;
-    console.log(collX);
-    console.log(collY);
+
     collX && collY ? (value = true) : (value = false);
     return value;
   } else {
@@ -161,7 +160,6 @@ function show(lvl, resolve) {
 }
 
 function create(name, func) {
-  console.log(func);
   let object = document.createElement("img");
   object.className = "object";
   object.id = name;
