@@ -90,7 +90,8 @@ class Game {
         let index = this.notes.indexOf(closest);
         this.notes[index][2] = 0;
         let sound = sounds[this.level][index];
-        pause(this.prevSound);
+        let prevSound = this.prevSound
+        pause(prevSound);
         play(sound);
         this.score--;
         this.prevSound = sound;
