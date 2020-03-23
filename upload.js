@@ -2,14 +2,14 @@ function loadImages(resolve, reject) {
   let res = resolve;
   let bg = document.getElementById("res");
   let length = 4 + 3 + 1 + uniq.length + authors.length + authors.length
-  alert(length)
   let sum = 0;
   let timer = setInterval(() => {
     let prog = 100/length*sum+'%'
      document.getElementById("bar").style.width=prog
     if (sum === length) {
       clearInterval(timer);
-      res()
+      setTimeout(() => res(), 150000
+      )
       console.log("loaded images");
     }
   }, 500);

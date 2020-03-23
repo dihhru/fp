@@ -43,6 +43,7 @@
   justify-content: center;
   align-items: center;
   background-color: black;
+  flex-direction: column;
 }
 .bar  {
 
@@ -57,4 +58,20 @@
   height:10px;
   width:100%;
   z-index:1000;
+}
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.text  {
+    animation: 2s ease-out slideInFromLeft;
+  color:white;
+  font-size: 2em;
+ font-family: 'Montserrat', sans-serif;
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100vw);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

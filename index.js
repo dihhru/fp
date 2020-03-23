@@ -8,7 +8,12 @@ const app = document.getElementById("app");
 const bar = document.getElementById("bar");
 let size = screenSize();
 let game = new Game(size, notesPositions);
-let n = fetch("/images/other/speed1.png").then((x)=>console.log(x))
+function load() {
+  let text = document.getElementById('text')
+  let img  = document.getElementById('img')
+  img.style.display='none'
+  text.style.display=''
+}
 addInputs(game);
 let prepare = async function({ width, height }) {
   loading.style.width = width + "px";
@@ -24,6 +29,7 @@ prepare(size)
   .then(x => {
     app.style.display = "";
     loading.style.display = "none";
+    setTimeout(()=>alert(1), 1000)
   })
   .then(x => game.initLevel())
   .then(x => start())
