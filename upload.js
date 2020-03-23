@@ -37,10 +37,8 @@ setTimeout(()=>res(), 1000)
   while (i3 < uniq.length) {
     let sound = uniq[i3];
     let doc = document.createElement("audio");
-    doc.muted = true; //prevents "user didn't interact with the document first. err"
     doc.src = `sounds/${sound}.wav`;
-    doc.id = "s" + i3;
-    doc.muted = true;
+    doc.id = "s" + i3;;
     doc.onloadedmetadata = () => sum++;
     bg.appendChild(doc);
     i3++;

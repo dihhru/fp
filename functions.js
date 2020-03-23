@@ -134,7 +134,6 @@ function addInputs(game) {
 function play(note) {
   let id = uniq.indexOf(note);
   let doc = document.getElementById("s" + id);
-  doc.muted = false;
   doc.play();
 }
 function pause(note) {
@@ -142,7 +141,6 @@ function pause(note) {
     let id = uniq.indexOf(note);
     let doc = document.getElementById("s" + id);
     doc.currentTime = 0;
-    doc.muted = true;
     doc.pause();
   }
 }
