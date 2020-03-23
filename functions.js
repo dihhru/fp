@@ -21,7 +21,7 @@ function throttle(func, ms) {
   }
   return wrapper;
 }
-let game1 = throttle(gameLoop, 15);
+let game1 = throttle(gameLoop, 25);
 function start() {
   game1();
 }
@@ -106,10 +106,10 @@ function addInputs(game) {
           game.moveY("-");
           break;
         case 32:
-          game.isPaused = !game.isPaused;
+          game.togglePause()
           break;
         case 13:
-          game.isPaused = !game.isPaused;
+          game.togglePause()
           break;
         default:
           break;
@@ -168,4 +168,10 @@ function create(name, func) {
   };
   object.onclick = () => func();
   tools.appendChild(object);
+}
+function showhide(el, el2)  {
+  let show = document.getElementById(el)
+  let hide = document.getElementById(el2)
+  show.style.display=''
+  hide.style.display='none'
 }

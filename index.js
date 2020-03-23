@@ -8,31 +8,40 @@ const app = document.getElementById("app");
 const bar = document.getElementById("bar");
 let size = screenSize();
 let game = new Game(size, notesPositions);
-function load() {
-  let text = document.getElementById('text')
-  let img  = document.getElementById('img')
-  img.style.display='none'
-  text.style.display=''
+
+function cat(resolve) {
+  showhide('text', 'img')
+  setTimeout(()=>{
+
+    showhide('img', 'text')
+    resolve()
+  }, 1500)
 }
+
 addInputs(game);
 let prepare = async function({ width, height }) {
   loading.style.width = width + "px";
   loading.style.height = height + "px";
   let images;
+  let load = new Promise((resolve, reject) => cat(resolve));
   let imagesP = new Promise((resolve, reject) => loadImages(resolve, reject));
   images = await imagesP;
-  return images;
+  return images + load
 };
 
+create("restart", game.initLevel);
+create("speed1", game.setSpeed)
 prepare(size)
   .then(x => game.adjust())
-  .then(x => {
-    app.style.display = "";
-    loading.style.display = "none";
-    setTimeout(()=>alert(1), 1000)
-  })
   .then(x => game.initLevel())
+  .then(x => 
+  {
+    showhide('text', 'img')
+    let text = document.getElementById('text')
+    text.innerHTML='Press Enter to start'
+ 
+  }
+    )
   .then(x => start())
   .catch(e => alert(e));
-create("restart", game.initLevel);
-create("speed1", game.setSpeed);
+;

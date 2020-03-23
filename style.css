@@ -19,8 +19,26 @@
   left: calc(50% - 100px);
 }
 .authorA {
-  bottom: calc(50% - 150px);
-  transform: scale(1.8);
+ bottom: calc(50% - 150px);
+  transform: scale(1.3);
+  
+}
+@media only screen and (max-width: 600px)  {
+  .all  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        height: 100%;
+  }
+  .author {
+      left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+  }
+  .authorA {
+  bottom: 50%;
+  transform: scale(1.3);
+}
 }
 .object {
   z-index: 10000;
@@ -61,7 +79,7 @@
 }
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 .text  {
-    animation: 2s ease-out slideInFromLeft;
+   animation: 1.5s ease-out slideInFromLeft;
   color:white;
   font-size: 2em;
  font-family: 'Montserrat', sans-serif;
@@ -74,4 +92,7 @@
   100% {
     transform: translateX(0);
   }
+}
+#app  {
+  position: relative;
 }
