@@ -66,7 +66,7 @@ class Game {
     this.isPaused?
       showhide('loading', 'app') : showhide('app', 'loading')
   }
-  update() {
+  update(res) {
     if (!this.isPaused&&this.isOk) {
       ctx.clearRect(0, 0, this.width, this.height);
       let { x, y } = this.pos;
@@ -109,5 +109,6 @@ class Game {
         this.y = 300;
       }
     }
+    res()
   }
 }

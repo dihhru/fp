@@ -1,35 +1,34 @@
-function throttle(func, ms) {
-  let isThrottled = false,
-    savedArgs,
-    savedThis;
-  function wrapper() {
-    if (isThrottled) {
-      // (2)
-      savedArgs = arguments;
-      savedThis = this;
-      return;
-    }
-    func.apply(this, arguments); // (1)
-    isThrottled = true;
-    setTimeout(function() {
-      isThrottled = false; // (3)
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs);
-        savedArgs = savedThis = null;
-      }
-    }, ms);
-  }
-  return wrapper;
-}
-let game1 = throttle(gameLoop, 25);
+// function throttle(func, ms) {
+//   let isThrottled = false,
+//     savedArgs,
+//     savedThis;
+//   function wrapper() {
+//     if (isThrottled) {
+//       // (2)
+//       savedArgs = arguments;
+//       savedThis = this;
+//       return;
+//     }
+//     func.apply(this, arguments); // (1)
+//     isThrottled = true;
+//     setTimeout(function() {
+//       isThrottled = false; // (3)
+//       if (savedArgs) {
+//         wrapper.apply(savedThis, savedArgs);
+//         savedArgs = savedThis = null;
+//       }
+//     }, ms);
+//   }
+//   return wrapper;
+// }
+// let game1 = throttle(gameLoop, 20);
 function start() {
-  game1();
+  gameLoop()
 }
-let lastTime = 0;
 
-function gameLoop() {
-  game.update();
-  requestAnimationFrame(gameLoop);
+async function gameLoop() {
+  let ok = await new Promise((res) => game.update(res)).then(requestAnimationFrame(gameLoop))
+  return ok
 }
 
 function draw(img, x, y, width, height) {
@@ -37,7 +36,7 @@ function draw(img, x, y, width, height) {
   ctx.drawImage(img, x, y, width, height);
 }
 function move({ x, y }, speed) {
-  x += 3 * speed;
+  x += 2 * speed;
   y += 0.2;
   return { x, y };
 }
