@@ -68,9 +68,11 @@ class Game {
   }
   update() {
     if (!this.isPaused&&this.isOk) {
+      ctx.clearRect(0, 0, this.width, this.height);
       let { x, y } = this.pos;
       let author = authors[this.level];
       let pannel = `${author}_pannel`;
+      ctx.clear
       draw(pannel, 0, -160, 3600, 860);
       draw("plane", x, y, 100, 100);
       this.notes.map(function(note) {
