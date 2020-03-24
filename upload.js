@@ -1,16 +1,17 @@
-function loadImages(resolve, reject) {
+function loadImages(resolve) {
   let res = resolve;
   let bg = document.getElementById("res");
   let length = 4 + 3 + 1 + uniq.length + authors.length + authors.length
   let sum = 0;
   let timer = setInterval(() => {
+    console.log(sum)
     let prog = 100/length*sum+'%'
      document.getElementById("bar").style.width=prog
     if (sum === length) {
       clearInterval(timer);
       res()
     }
-  }, 500);
+  }, 1000);
   let i1 = 0;
   while (i1 < 4) {
     let img = document.createElement("img");
