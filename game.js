@@ -20,11 +20,13 @@ class Game {
     canvas.style.height = this.height;
     root.style.width = this.width;
     root.style.height = this.height;
+    let n = this.width/this.height
+    let n1 = 4.2/n 
     let arr = this.notesPosition;
     for (let i = 0; i < arr.length; i++) {
       arr[i] = arr[i].map(function(x) {
-        x[0] *= 2;
-        x[1] *= 2;
+        x[0] *= n1;
+        x[1] *= n1
         return x;
       });
     }
