@@ -26,11 +26,10 @@ addInputs(game);
 let prepare = async function({ width, height }) {
   loading.style.width = width + "px";
   loading.style.height = height + "px";
-  let images;
   let load = await new Promise((resolve, reject) => initAnime(resolve));
   let imagesP = await new Promise((resolve, reject) => loadImages(resolve, reject));
-  images = load.then(imagesP)
-  return images
+
+  return load+imagesP
 };
 
 create("restart", game.initLevel);
