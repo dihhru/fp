@@ -8,9 +8,7 @@ function loadImages(resolve, reject) {
      document.getElementById("bar").style.width=prog
     if (sum === length) {
       clearInterval(timer);
-
-setTimeout(()=>res(), 1000)      
-      console.log("loaded images");
+ res()
     }
   }, 500);
   let i1 = 0;
