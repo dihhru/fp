@@ -61,10 +61,12 @@ class Game {
     document.getElementById("crash").play();
     this.pos.y = 150;
   }
-  togglePause() {
+  togglePause(pause=true) {
     this.isPaused = !this.isPaused
-    this.isPaused?
-      showhide('loading', 'app') : showhide('app', 'loading')
+    let toggle = pause && this.isPaused
+    toggle?
+     showhide('loading', 'app') : showhide('app', 'loading')
+     this.isPaused=toggle
   }
   update(res) {
     if (!this.isPaused&&this.isOk) {

@@ -9,24 +9,28 @@ const bar = document.getElementById("bar");
 let size = screenSize();
 let game = new Game(size, notesPositions);
 
-function cat(resolve) {
+function initAnime(resolve) {
   showhide('text', 'img')
   setTimeout(()=>{
-
     showhide('img', 'text')
     resolve()
-  }, 1500)
+  }, 5500)
 }
+function changeText() {
+  showhide('text', 'img')
+  let text = document.getElementById('text')
+  text.innerHTML = 'Press Enter to start'
 
+}
 addInputs(game);
 let prepare = async function({ width, height }) {
   loading.style.width = width + "px";
   loading.style.height = height + "px";
   let images;
-  let load = new Promise((resolve, reject) => cat(resolve));
+  let load = new Promise((resolve, reject) => initAnime(resolve));
   let imagesP = new Promise((resolve, reject) => loadImages(resolve, reject));
-  images = await imagesP;
-  return images + load
+  images = load.then(imagesP)
+  return images
 };
 
 create("restart", game.initLevel);
@@ -35,13 +39,7 @@ prepare(size)
   .then(x => game.adjust())
   .then(x => game.initLevel())
   .then(x => 
-  {
-    showhide('text', 'img')
-    let text = document.getElementById('text')
-    text.innerHTML='Press Enter to start'
- 
-  }
-    )
+    changeText())
   .then(x => start())
   .catch(e => alert(e));
 ;

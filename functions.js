@@ -118,17 +118,18 @@ function addInputs(game) {
       passive: true
     }
   );
-  //   document.addEventListener(
-  //     "touchstart",
-  //     event => {
-  //       let height = document.documentElement.clientHeight;
-  //       let touchY = event.targetTouches[0].clientY;
-  //       let middle = height / 2;
-  //       touchY >= middle ? plane.moveY("-") : plane.moveY("+");
-  //       controller.isStarted = true;
-  //     },
-  //     { passive: true }
-  //   );
+    document.addEventListener(
+      "touchstart",
+      event => {
+        game.togglePause(false)
+        let height = document.documentElement.clientHeight;
+        let touchY = event.targetTouches[0].clientY;
+        let middle = height / 2;
+        touchY >= middle ? game.moveY("-") : game.moveY("+");
+
+      },
+      { passive: true }
+    );
 }
 function play(note) {
   let id = uniq.indexOf(note);
