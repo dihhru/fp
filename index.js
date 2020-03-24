@@ -14,7 +14,7 @@ function initAnime(resolve) {
   setTimeout(()=>{
     showhide('img', 'text')
     resolve()
-  }, 5500)
+  }, 2500)
 }
 function changeText() {
   showhide('text', 'img')
@@ -27,8 +27,8 @@ let prepare = async function({ width, height }) {
   loading.style.width = width + "px";
   loading.style.height = height + "px";
   let images;
-  let load = new Promise((resolve, reject) => initAnime(resolve));
-  let imagesP = new Promise((resolve, reject) => loadImages(resolve, reject));
+  let load = await new Promise((resolve, reject) => initAnime(resolve));
+  let imagesP = await new Promise((resolve, reject) => loadImages(resolve, reject));
   images = load.then(imagesP)
   return images
 };
