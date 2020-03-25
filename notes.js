@@ -11,22 +11,28 @@ function detectCollision({ x, y }, note) {
     return false;
   }
 }
-
 function close1(x, arr) {
   let needle = x;
-  let arr = this.notesPositions.filter(el => el[2] !== 0);
-  if (!arr.length) {
+  let filter= arr.filter(el => el[2] !== 0);
+  if (!filter.length) {
     return;
   }
-  let closest = arr.reduce((a, b) => {
+  let closest = filter.reduce((a, b) => {
     return Math.abs(b[0] - needle) < Math.abs(a[0] - needle) ? b : a;
   });
   return closest;
 }
 
-function play(note, index) {
-  let id = uniq.indexOf(sound);
+function play(note) {
+  let id = uniq.indexOf(note);
   let doc = document.getElementById("s" + id);
-  doc.muted = false;
   doc.play();
+}
+function pause(note) {
+  if (!!note) {
+    let id = uniq.indexOf(note);
+    let doc = document.getElementById("s" + id);
+    doc.currentTime = 0;
+    doc.pause();
+  }
 }

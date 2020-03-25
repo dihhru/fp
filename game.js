@@ -16,6 +16,8 @@ class Game {
     this.setSpeed = this.setSpeed.bind(this);
   }
   adjust() {
+    const canvas = document.getElementById("canvas");
+    const root = document.getElementById("root");
     canvas.style.width = this.width;
     canvas.style.height = this.height;
     root.style.width = this.width;
@@ -72,6 +74,8 @@ class Game {
   }
   update(res) {
     if (!this.isPaused&&this.isOk) {
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, this.width, this.height);
       let { x, y } = this.pos;
       let author = authors[this.level];
