@@ -25,7 +25,7 @@ function gameLoop() {
 }
 function start() {
     game.adjust()
-    game.initLevel()
     changeText()
+    game.initLevel()
     gameLoop()
 }

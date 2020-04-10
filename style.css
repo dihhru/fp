@@ -6,7 +6,7 @@
   height: 860px;
   display: none;
 }
-.author {
+.composer {
   width: 200px;
   height: 300px;
   -webkit-transition: 2s ease-in-out;
@@ -18,21 +18,21 @@
   bottom: 0px;
   left: calc(50% - 100px);
 }
-.authorA {
+.composerAnimated {
  bottom: calc(50% - 150px);
-  transform: scale(1.3);
+ transform: scale(1.3);
 }
 @media only screen and (max-width: 600px)  {
 body {
   display: flex;
   align-items: center;
 }
-  .author {
+  .composer {
       left: calc(50% - 50px);
     width: 100px;
     height: 100px;
   }
-  .authorA {
+  .composerA {
   bottom: 50%;
   transform: scale(1.3);
 }

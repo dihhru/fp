@@ -3,7 +3,7 @@ class Game {
     this.notesPositions = notesPositions;
     this.screen = {width:width, height:height}
     this.pos = { x: 0, y: 150, speed:1 };
-    this.data = {border:null, score:null, notes:null, prevSound:null, isOk:true, isPaused:true, level:0}
+    this.data = {border:null, score:null, notes:null, prevSound:null, isOk:false, isPaused:true, level:0}
     this.initLevel = this.initLevel.bind(this);
     this.setSpeed = this.setSpeed.bind(this);
   }
@@ -29,7 +29,8 @@ class Game {
     }
     this.notesPositions = arr;
   }
-  initLevel(lvl = this.data.level) {;
+  initLevel(lvl = this.data.level) {
+    alert(1)
     this.data.isOk = true
     this.data.notes = JSON.parse(JSON.stringify(this.notesPositions[lvl]));
     let length = this.data.notes.length; 
@@ -59,15 +60,17 @@ class Game {
     speed.src = `images/other/speed${this.pos.speed}.png`;
   }
 
-  togglePause(pause=true) {
+  togglePause() {
+    if (!this.data.isOk) {
+      return
+    }
     this.data.isPaused = !this.data.isPaused
-    let toggle = pause && this.data.isPaused
+    let toggle =this.data.isPaused
     toggle?
      showhide('loading', 'app') : showhide('app', 'loading')
      this.data.isPaused=toggle
   }
   update() {
-  console.log(1)
     if (!this.data.isPaused && this.data.isOk) {
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
