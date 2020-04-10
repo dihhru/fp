@@ -76,7 +76,7 @@ body {
 }
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 .text  {
-   animation: 1.5s ease-out slideInFromLeft;
+   animation: 1.5s linear slideInFromLeft;
   color:white;
   font-size: 2em;
  font-family: 'Montserrat', sans-serif;
