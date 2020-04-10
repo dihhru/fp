@@ -13,7 +13,7 @@ function show(lvl, resolve) {
 function showhide(el, el2) {
     let show, hide
     show = document.getElementById(el)
-     hide = document.getElementById(el2)
+    hide = document.getElementById(el2)
     show.style.display = ''
     hide.style.display = 'none'
 }

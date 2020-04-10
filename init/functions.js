@@ -1,9 +1,5 @@
 
 
-async function gameLoop() {
-  let ok = await new Promise((res) => game.update(res)).then(requestAnimationFrame(gameLoop))
-  return ok
-}
 function screenSize() {
   let width, height, n;
   width = document.documentElement.clientWidth;

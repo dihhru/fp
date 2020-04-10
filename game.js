@@ -66,7 +66,8 @@ class Game {
      showhide('loading', 'app') : showhide('app', 'loading')
      this.data.isPaused=toggle
   }
-  update(res) {
+  update() {
+  console.log(1)
     if (!this.data.isPaused && this.data.isOk) {
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
@@ -113,6 +114,5 @@ class Game {
         this.pos.y = 300;
       }
     }
-    res()
   }
 }

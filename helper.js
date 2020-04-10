@@ -18,12 +18,14 @@ async function prepare({ width, height }) {
     let imagesP = await new Promise((resolve, reject) => loadImages(resolve, reject));
     return load + imagesP
 };
-function t() {
+function gameLoop() {
+    // let ok = await new Promise((res) => game.update(res)).then(requestAnimationFrame(gameLoop))
+    // return ok
+    let timer = setInterval(()=>game.update(), 7)
+}
+function start() {
     game.adjust()
     game.initLevel()
     changeText()
     gameLoop()
-}
-function crash()    {
-    
 }

@@ -5,6 +5,6 @@ create("restart", game.initLevel);
 create("speed1", game.setSpeed)
 addInputs(game);
 prepare(size)
-  .then(()=>t())
+  .then(()=>start())
   .catch(e => alert(e));
 ;
