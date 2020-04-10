@@ -11,7 +11,7 @@ function detectCollision({ x, y }, note) {
     return false;
   }
 }
-function close1(x, arr) {
+function getClosestNote(x, arr) {
   let needle = x;
   let filter= arr.filter(el => el[2] !== 0);
   if (!filter.length) {

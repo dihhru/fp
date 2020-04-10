@@ -4,10 +4,10 @@ function addInputs(game) {
         event => {
             switch (event.keyCode) {
                 case 38:
-                    game.moveY("+");
+                    game.flyUpOrDown("down");
                     break;
                 case 40:
-                    game.moveY("-");
+                    game.flyUpOrDown("up");
                     break;
                 case 32:
                     game.togglePause()

@@ -3,8 +3,8 @@ class Game {
     this.notesPositions = notesPositions;
     this.screen = {width:width, height:height}
     this.pos = { x: 0, y: 150, speed:1 };
-    this.data = {border:null, score:null, notes:null, prevSound:null, isOk:false, isPaused:true, level:0}
-    this.initLevel = this.initLevel.bind(this);
+    this.data = {border:null, score:null, notes:null, prevSound:null, isLoaded:false, isPaused:true, level:0}
+    this.startLevel = this.startLevel.bind(this);
     this.setSpeed = this.setSpeed.bind(this);
   }
   adjust() {
@@ -30,26 +30,26 @@ class Game {
     this.notesPositions = newNotesPos
   }
   startLevel(lvl = this.data.level) {
-    this.data.isOk = true
+    this.data.isLoaded = true
     this.data.notes = JSON.parse(JSON.stringify(this.notesPositions[lvl]));
     let length = this.data.notes.length; 
     this.data.score = length
     this.data.border = this.data.notes[length - 1][0];
     this.pos.x = 0;
   }
-  moveY(arg) {
-    arg === "-" ? (this.pos.y += 15) : (this.pos.y -= 15);
+  flyUpOrDown(arg) {
+    arg === "up" ? (this.pos.y += 15) : (this.pos.y -= 15);
   }
   levelUp() {
     let lvl, _this, promise
-    this.data.isOk=false
+    this.data.isLoaded=false
     lvl = this.data.level;
     _this = this;
     promise = new Promise((resolve, reject) => showComposer(lvl, resolve)).then(
       function() {
         _this.data.level === 3 ? (_this.data.level = 0) : _this.data.level++;
-        _this.initLevel(_this.data.level);
-        _this.data.isOk = true
+        _this.startLevel(_this.data.level);
+        _this.data.isLoaded = true
       }
     );
   }
@@ -58,9 +58,8 @@ class Game {
     this.pos.speed == 3 ? (this.pos.speed = 1) : this.pos.speed++;
     speed.src = `images/other/speed${this.pos.speed}.png`;
   }
-
   togglePause() {
-    if (!this.data.isOk) {
+    if (!this.data.isLoaded) {
       return
     }
     this.data.isPaused = !this.data.isPaused
@@ -70,13 +69,13 @@ class Game {
      this.data.isPaused=toggle
   }
   update() {
-    if (!this.data.isPaused && this.data.isOk) {
+    if (!this.data.isPaused && this.data.isLoaded) {
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
       let {width, height} = this.screen
       let { x, y, speed } = this.pos;
       let {notes,level, score, prevSound, border} = this.data 
-      let composer, pannel, closest, isPlay;
+      let composer, pannel, closest, shouldPlay;
       composer = composers[level];
       pannel = `${composer}_pannel`;
       ctx.clearRect(0, 0, width, height);
@@ -92,10 +91,10 @@ class Game {
           draw(img, x, y, 50, 75);
         }
       });
-      this.pos = move({ x, y, speed});
-       closest = close1(x, notes);
-       isPlay = detectCollision({ x, y }, closest);
-      if (isPlay) {
+      this.pos = fly({ x, y, speed});
+       closest = getClosestNote(x, notes);
+         shouldPlay = detectCollision({ x, y }, closest);
+      if (shouldPlay) {
         let index = notes.indexOf(closest);
         this.data.notes[index][2] = 0;
         let sound = sounds[level][index];
@@ -106,10 +105,9 @@ class Game {
       }
       ctx.setTransform(1, 0, 0, 1, 0, 0); //
       ctx.translate(-x, 0);
-      
       if (x >= border) {
-        this.data.isOk=false
-        score <= 3 ? this.levelUp() : this.initLevel(level);
+        this.data.isLoaded=false
+        score <= 3 ? this.levelUp() : this.startLevel(level);
       }
       if (y < 0 || y > 600) {
         document.getElementById("crash").play();

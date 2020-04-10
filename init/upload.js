@@ -1,6 +1,6 @@
 function downloadFiles(resolve) {
   let files = document.getElementById("files");
-  let filesCount = 4 + 3 + 1 + uniq.length + composers.length*2
+  let filesCount = 4 + 3 + 1 + uniq.length + composers.length*2 
   let uploaded = 0;
   let timer = setInterval(() => {
     let progress = 100 / filesCount * uploaded+'%'
@@ -63,5 +63,10 @@ function downloadFiles(resolve) {
   plane.src = "images/other/plane.png";
   plane.onload = () => uploaded++;
   files.appendChild(plane);
+  let crash_sound = document.createElement('audio')
+  crash_sound.id = 'crash'
+  crash_sound.src = "sounds/crash_sound.wav"
+  crash_sound.onload = () => uploaded++;
+  files.appendChild(crash_sound);
 }
 
