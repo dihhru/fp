@@ -11,11 +11,11 @@ function move({ x, y, speed}) {
     return { x, y, speed};   
 } 
 async function prepare({ width, height }) {
-    const loading = document.getElementById("loading");
-    loading.style.width = width + "px";
-    loading.style.height = height + "px";
-    let load = await new Promise((resolve, reject) => initAnime(resolve));
-    let imagesP = await new Promise((resolve, reject) => loadImages(resolve, reject));
+    const loadingScreen = document.getElementById("loadingScreen");
+    loadingScreen.style.width = width + "px";
+    loadingScreen.style.height = height + "px";
+    let load = await new Promise((resolve, reject) => initialAnimation(resolve));
+    let imagesP = await new Promise((resolve, reject) => downloadFiles(resolve, reject));
     return load + imagesP
 };
 function gameLoop() {
@@ -25,7 +25,7 @@ function gameLoop() {
 }
 function start() {
     game.adjust()
-    changeText()
+    changeText('Press Enter to start')
     game.initLevel()
     gameLoop()
 }

@@ -30,7 +30,7 @@ class Game {
     this.notesPositions = arr;
   }
   initLevel(lvl = this.data.level) {
-    alert(1)
+  
     this.data.isOk = true
     this.data.notes = JSON.parse(JSON.stringify(this.notesPositions[lvl]));
     let length = this.data.notes.length; 
@@ -46,7 +46,7 @@ class Game {
     this.data.isOk=false
     lvl = this.data.level;
     _this = this;
-    promise = new Promise((resolve, reject) => show(lvl, resolve)).then(
+    promise = new Promise((resolve, reject) => showComposer(lvl, resolve)).then(
       function() {
         _this.data.level === 3 ? (_this.data.level = 0) : _this.data.level++;
         _this.initLevel(_this.data.level);
@@ -67,7 +67,7 @@ class Game {
     this.data.isPaused = !this.data.isPaused
     let toggle =this.data.isPaused
     toggle?
-     showhide('loading', 'app') : showhide('app', 'loading')
+     showAndHide('loadingScreen', 'app') : showAndHide('app', 'loadingScreen')
      this.data.isPaused=toggle
   }
   update() {
@@ -77,9 +77,9 @@ class Game {
       let {width, height} = this.screen
       let { x, y, speed } = this.pos;
       let {notes,level, score, prevSound, border} = this.data 
-      let author, pannel, closest, isPlay;
-      author = authors[level];
-      pannel = `${author}_pannel`;
+      let composer, pannel, closest, isPlay;
+      composer = composers[level];
+      pannel = `${composer}_pannel`;
       ctx.clearRect(0, 0, width, height);
       draw(pannel, 0, -160, 3600, 860);
       draw("plane", x, y, 100, 100);

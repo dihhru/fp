@@ -1,4 +1,4 @@
-const authors = ["mozart", "beethoven", "bach", "brahms"];
+const composers = ["mozart", "beethoven", "bach", "brahms"];
 const sounds = [
   [
     "c1",
@@ -168,8 +168,7 @@ const notesPositions = [
     [1050, 130, 1, 3] 
   ] //brahms
 ];
-function getUniq()
-{
+function getUniq() {
   let files = JSON.parse(JSON.stringify(sounds)); //copy 
   let arr = files.flat(Infinity);
   let set = new Set(arr);

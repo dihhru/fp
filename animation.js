@@ -1,31 +1,28 @@
-function show(lvl, resolve) {
+function showComposer(lvl, resolve) {
     const root = document.getElementById("root");
-    img = document.getElementById(authors[lvl]);
+    img = document.getElementById(composers[lvl]);
     clone = img.cloneNode();
-    clone.className = "author";
+    clone.className = "composer";
     root.appendChild(clone);
-    setTimeout(() => clone.classList.add("authorA"), 500);
+    setTimeout(() => clone.classList.add("composerAnimated"), 500);
     setTimeout(() => {
         root.removeChild(clone);
         resolve();
     }, 3500);
 }
-function showhide(el, el2) {
-    let show, hide
-    show = document.getElementById(el)
-    hide = document.getElementById(el2)
-    show.style.display = ''
-    hide.style.display = 'none'
+function showAndHide(el, el2) {
+    document.getElementById(el).style.display = ''
+    document.getElementById(el2).style.display = 'none'
 }
-function initAnime(resolve) {
-    showhide('text', 'img')
+function initialAnimation(resolve) {
+    showAndHide('text', 'img')
     setTimeout(() => {
-        showhide('img', 'text')
+        showAndHide('img', 'text')
         resolve()
     }, 2500)
 }
-function changeText() {
-    showhide('text', 'img')
+function changeText(x) {
+    showAndHide('text', 'img')
     let text = document.getElementById('text')
-    text.innerHTML = 'Press Enter to start'
+    text.innerHTML = x 
 }

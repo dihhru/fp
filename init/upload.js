@@ -1,15 +1,13 @@
-function loadImages(resolve) {
-  let res = resolve;
-  let bg = document.getElementById("res");
-  let length = 4 + 3 + 1 + uniq.length + authors.length + authors.length
-  let sum = 0;
+function downloadFiles(resolve) {
+  let files = document.getElementById("files");
+  let filesCount = 4 + 3 + 1 + uniq.length + composers.length*2
+  let uploaded = 0;
   let timer = setInterval(() => {
-    console.log(sum)
-    let prog = 100/length*sum+'%'
-     document.getElementById("bar").style.width=prog
-    if (sum === length) {
+    let progress = 100 / filesCount * uploaded+'%'
+     document.getElementById("bar").style.width=progress
+    if (uploaded === filesCount ) {
       clearInterval(timer);
-      res()
+      resolve()
     }
   }, 1000);
   let i1 = 0;
@@ -18,8 +16,8 @@ function loadImages(resolve) {
     img.src = `images/notes/${i1}.png`;
     img.width = "150";
     img.id = i1;
-    img.onload = () => sum++;
-    bg.appendChild(img);
+    img.onload = () => uploaded++;
+    files.appendChild(img);
     i1++;
   }
   let i2 = 1;
@@ -28,8 +26,8 @@ function loadImages(resolve) {
     img.src = `images/other/speed${i2}.png`;
     img.width = "150";
     img.id = i2;
-    img.onload = () => sum++;
-    bg.appendChild(img);
+    img.onload = () => uploaded++;
+    files.appendChild(img);
     i2++;
   }
   let i3 = 0;
@@ -38,32 +36,32 @@ function loadImages(resolve) {
     let doc = document.createElement("audio");
     doc.src = `sounds/${sound}.wav`;
     doc.id = "s" + i3;;
-    doc.onloadedmetadata = () => sum++;
-    bg.appendChild(doc);
+    doc.onloadedmetadata = () => uploaded++;
+    files.appendChild(doc);
     i3++;
+  }
+  let i4 = 0 
+  while (i4<composers.length) {
+    let composer = composers[i4];
+    let img = document.createElement("img");
+    img.id = composer;
+    img.src = `images/composers/${composer}.gif`;
+    img.width = "200";
+    img.height = "300";
+    img.onload  = ()=> uploaded++
+    let pannel = document.createElement("img");
+    pannel.id = `${composer}_pannel`;
+    pannel.src = `images/pannels/${composer}_pannel.png`;
+    pannel.className = "pannel";
+    pannel.onload = () => uploaded++
+    files.appendChild(img);
+    files.appendChild(pannel);
+    i4++
   }
   let plane = document.createElement("img");
   plane.id = "plane";
   plane.src = "images/other/plane.png";
-  plane.onload = () => sum++;
-  bg.appendChild(plane);
-  let i4 = 0 
-  while (i4<authors.length) {
-    let author = authors[i4];
-    let img = document.createElement("img");
-    img.id = author;
-    img.src = `images/authors/${author}.gif`;
-    img.width = "200";
-    img.height = "300";
-    img.onload  = ()=> sum++
-    let pannel = document.createElement("img");
-    pannel.id = `${author}_pannel`;
-    pannel.src = `images/pannels/${author}_pannel.png`;
-    pannel.className = "pannel";
-    pannel.onload = () => sum++
-    bg.appendChild(img);
-    bg.appendChild(pannel);
-    i4++
-  }
+  plane.onload = () => uploaded++;
+  files.appendChild(plane);
 }
 

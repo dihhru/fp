@@ -1,20 +1,20 @@
 
 
-function screenSize() {
-  let width, height, n;
+function getScreenSize() {
+  let width, height
   width = document.documentElement.clientWidth;
   height = document.documentElement.clientHeight;
   return { width, height };
 }
 function create(name, func) {
-  const tools = document.getElementById("tools");
-  let object = document.createElement("img");
-  object.className = "object";
-  object.id = name;
-  object.src = `images/other/${name}.png`;
-  object.ontouchstart = e => {
+  const tools = document.getElementById("btn_bar");
+  let btn = document.createElement("img");
+  btn.className = "btn";
+  btn.id = name;
+  btn.src = `images/other/${name}.png`;
+  btn.ontouchstart = e => {
     e.stopPropagation();
   };
-  object.onclick = () => func();
-  tools.appendChild(object);
+  btn.onclick = () => func();
+  tools.appendChild(btn);
 }

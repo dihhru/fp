@@ -1,5 +1,5 @@
 
-let size = screenSize();
+let size = getScreenSize();
 let game = new Game(size, notesPositions);
 create("restart", game.initLevel);
 create("speed1", game.setSpeed)
