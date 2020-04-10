@@ -1,6 +1,5 @@
 function show(lvl, resolve) {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    const root = document.getElementById("root");
     img = document.getElementById(authors[lvl]);
     clone = img.cloneNode();
     clone.className = "author";
@@ -12,8 +11,9 @@ function show(lvl, resolve) {
     }, 3500);
 }
 function showhide(el, el2) {
-    let show = document.getElementById(el)
-    let hide = document.getElementById(el2)
+    let show, hide
+    show = document.getElementById(el)
+     hide = document.getElementById(el2)
     show.style.display = ''
     hide.style.display = 'none'
 }

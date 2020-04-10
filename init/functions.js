@@ -8,9 +8,6 @@ function screenSize() {
   let width, height, n;
   width = document.documentElement.clientWidth;
   height = document.documentElement.clientHeight;
-  if (width < height) {
-    height /= 2;
-  }
   return { width, height };
 }
 function create(name, func) {

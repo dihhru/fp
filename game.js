@@ -1,89 +1,85 @@
 class Game {
   constructor({ width, height }, notesPositions) {
-    this.notesPosition = notesPositions;
-    this.width = width;
-    this.height = height;
-    this.level = 0;
-    this.pos = { x: 0, y: 150 };
-    this.speed = 1;
-    this.score = null;
-    this.notes = null;
-    this.prevSound = null;
-    this.border = null;
-    this.isPaused = true;
-    this.isOk=true
+    this.notesPositions = notesPositions;
+    this.screen = {width:width, height:height}
+    this.pos = { x: 0, y: 150, speed:1 };
+    this.data = {border:null, score:null, notes:null, prevSound:null, isOk:true, isPaused:true, level:0}
     this.initLevel = this.initLevel.bind(this);
     this.setSpeed = this.setSpeed.bind(this);
   }
   adjust() {
     const canvas = document.getElementById("canvas");
     const root = document.getElementById("root");
-    canvas.style.width = this.width;
-    canvas.style.height = this.height;
-    root.style.width = this.width;
-    root.style.height = this.height;
-    let n = this.width/this.height
-    let n1 = 4.2/n 
-    let arr = this.notesPosition;
+    let aspRatio, arr
+    let {width, height} = this.screen 
+    canvas.style.width = width;
+    canvas.style.height = height;
+    root.style.width = width;
+    root.style.height =height;
+    aspRatio = 4/(width/height)
+    arr = this.notesPositions;
+    width<height?
+    aspRatio /=1.5:aspRatio
     for (let i = 0; i < arr.length; i++) {
       arr[i] = arr[i].map(function(x) {
-        x[0] *= n1;
-        x[1] *= n1
+        x[0] *= aspRatio
+        x[1] *= aspRatio
         return x;
       });
     }
-    this.notesPosition = arr;
+    this.notesPositions = arr;
   }
-  initLevel(lvl = this.level) {;
-    this.isOk = true
-    this.notes = JSON.parse(JSON.stringify(this.notesPosition[lvl]));
-    this.score = this.notes.length;
-    this.border = this.notes[this.notes.length - 1][0];
+  initLevel(lvl = this.data.level) {;
+    this.data.isOk = true
+    this.data.notes = JSON.parse(JSON.stringify(this.notesPositions[lvl]));
+    let length = this.data.notes.length; 
+    this.data.score = length
+    this.data.border = this.data.notes[length - 1][0];
     this.pos.x = 0;
   }
   moveY(arg) {
     arg === "-" ? (this.pos.y += 15) : (this.pos.y -= 15);
   }
   levelUp() {
-    this.isOk=false
-    let lvl = this.level;
-    let _this = this;
-    let promise = new Promise((resolve, reject) => show(lvl, resolve)).then(
+    let lvl, _this, promise
+    this.data.isOk=false
+    lvl = this.data.level;
+    _this = this;
+    promise = new Promise((resolve, reject) => show(lvl, resolve)).then(
       function() {
-        _this.level === 3 ? (_this.level = 0) : _this.level++;
-        _this.initLevel(_this.level);
-        _this.isOk = true
+        _this.data.level === 3 ? (_this.data.level = 0) : _this.data.level++;
+        _this.initLevel(_this.data.level);
+        _this.data.isOk = true
       }
     );
   }
   setSpeed() {
-    this.speed == 3 ? (this.speed = 1) : this.speed++;
     let speed = document.getElementById("speed1");
-    speed.src = `images/other/speed${this.speed}.png`;
+    this.pos.speed == 3 ? (this.pos.speed = 1) : this.pos.speed++;
+    speed.src = `images/other/speed${this.pos.speed}.png`;
   }
-  crash() {
-    document.getElementById("crash").play();
-    this.pos.y = 150;
-  }
+
   togglePause(pause=true) {
-    this.isPaused = !this.isPaused
-    let toggle = pause && this.isPaused
+    this.data.isPaused = !this.data.isPaused
+    let toggle = pause && this.data.isPaused
     toggle?
      showhide('loading', 'app') : showhide('app', 'loading')
-     this.isPaused=toggle
+     this.data.isPaused=toggle
   }
   update(res) {
-    if (!this.isPaused&&this.isOk) {
+    if (!this.data.isPaused && this.data.isOk) {
       const canvas = document.getElementById("canvas");
       const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, this.width, this.height);
-      let { x, y } = this.pos;
-      let author = authors[this.level];
-      let pannel = `${author}_pannel`;
-      ctx.clear
+      let {width, height} = this.screen
+      let { x, y, speed } = this.pos;
+      let {notes,level, score, prevSound, border} = this.data 
+      let author, pannel, closest, isPlay;
+      author = authors[level];
+      pannel = `${author}_pannel`;
+      ctx.clearRect(0, 0, width, height);
       draw(pannel, 0, -160, 3600, 860);
       draw("plane", x, y, 100, 100);
-      this.notes.map(function(note) {
+      notes.map(function(note) {
         if (note[2] === 0) {
           return;
         } else {
@@ -93,28 +89,28 @@ class Game {
           draw(img, x, y, 50, 75);
         }
       });
-      this.pos = move({ x, y }, this.speed);
-      let closest = close1(x, this.notes);
-      let isPlay = detectCollision({ x, y }, closest);
+      this.pos = move({ x, y, speed});
+       closest = close1(x, notes);
+       isPlay = detectCollision({ x, y }, closest);
       if (isPlay) {
-        let index = this.notes.indexOf(closest);
-        this.notes[index][2] = 0;
-        let sound = sounds[this.level][index];
-        let prevSound = this.prevSound
+        let index = notes.indexOf(closest);
+        this.data.notes[index][2] = 0;
+        let sound = sounds[level][index];
         pause(prevSound);
         play(sound);
-        this.score--;
-        this.prevSound = sound;
+        this.data.score--;
+        this.data.prevSound = sound;
       }
-      ctx.setTransform(1, 0, 0, 1, 0, 0); //reset the transform matrix as it is cumulative
+      ctx.setTransform(1, 0, 0, 1, 0, 0); //
       ctx.translate(-x, 0);
-      if (x >= this.border) {
-        this.isOk=false
-        this.score <= 3 ? this.levelUp() : this.initLevel(this.level);
+      
+      if (x >= border) {
+        this.data.isOk=false
+        score <= 3 ? this.levelUp() : this.initLevel(level);
       }
       if (y < 0 || y > 600) {
-        this.crash();
-        this.y = 300;
+        document.getElementById("crash").play();
+        this.pos.y = 300;
       }
     }
     res()

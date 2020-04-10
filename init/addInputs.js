@@ -27,9 +27,10 @@ function addInputs(game) {
         "touchstart",
         event => {
             game.togglePause(false)
-            let height = document.documentElement.clientHeight;
-            let touchY = event.targetTouches[0].clientY;
-            let middle = height / 2;
+            let height, touchY, middle
+            height = document.documentElement.clientHeight;
+            touchY = event.targetTouches[0].clientY;
+            middle = height / 2;
             touchY >= middle ? game.moveY("-") : game.moveY("+");
 
         },
