@@ -6,7 +6,7 @@ function getScreenSize() {
   height = document.documentElement.clientHeight;
   return { width, height };
 }
-function create(name, func) {
+function createBtn(name, func) {
   const tools = document.getElementById("btn_bar");
   let btn = document.createElement("img");
   btn.className = "btn";

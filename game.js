@@ -10,27 +10,26 @@ class Game {
   adjust() {
     const canvas = document.getElementById("canvas");
     const root = document.getElementById("root");
-    let aspRatio, arr
+    let aspRatio, newNotesPos
     let {width, height} = this.screen 
     canvas.style.width = width;
     canvas.style.height = height;
     root.style.width = width;
     root.style.height =height;
     aspRatio = 4/(width/height)
-    arr = this.notesPositions;
+    newNotesPos = this.notesPositions;
     width<height?
     aspRatio /=1.5:aspRatio
-    for (let i = 0; i < arr.length; i++) {
-      arr[i] = arr[i].map(function(x) {
+    for (let i = 0; i < newNotesPos.length; i++) {
+      newNotesPos[i] = newNotesPos[i].map(function(x) {
         x[0] *= aspRatio
         x[1] *= aspRatio
         return x;
       });
     }
-    this.notesPositions = arr;
+    this.notesPositions = newNotesPos
   }
-  initLevel(lvl = this.data.level) {
-  
+  startLevel(lvl = this.data.level) {
     this.data.isOk = true
     this.data.notes = JSON.parse(JSON.stringify(this.notesPositions[lvl]));
     let length = this.data.notes.length; 
