@@ -6,8 +6,8 @@ function draw(img, x, y, width, height) {
     ctx.drawImage(img, x, y, width, height);
 }
 function fly({ x, y, speed}) {
-    x += 2 * speed;
-    y += 0.2;
+    x += speed;
+    y += 0.5;
     return { x, y, speed};   
 } 
 async function prepare({ width, height }) {
