@@ -22,15 +22,14 @@ function getClosestNote(x, arr) {
   });
   return closest;
 }
-
 function play(note) {
-  let id = uniq.indexOf(note);
+  let id = uniqSounds.indexOf(note);
   let doc = document.getElementById("s" + id);
   doc.play();
 }
 function pause(note) {
   if (!!note) {
-    let id = uniq.indexOf(note);
+    let id = uniqSounds.indexOf(note);
     let doc = document.getElementById("s" + id);
     doc.currentTime = 0;
     doc.pause();

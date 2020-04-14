@@ -14,7 +14,7 @@ function showAndHide(el, el2) {
     document.getElementById(el).style.display = ''
     document.getElementById(el2).style.display = 'none'
 }
-function initialAnimation(resolve) {
+function openingAnimation(resolve) {
     showAndHide('text', 'img')
     setTimeout(() => {
         showAndHide('img', 'text')

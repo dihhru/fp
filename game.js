@@ -16,7 +16,7 @@ class Game {
     canvas.style.height = height;
     root.style.width = width;
     root.style.height =height;
-    aspRatio = 4/(width/height)
+    aspRatio = 3.5/(width/height)
     newNotesPos = this.notesPositions;
     width<height?
     aspRatio /=1.5:aspRatio
@@ -93,7 +93,7 @@ class Game {
       });
       this.pos = fly({ x, y, speed});
        closest = getClosestNote(x, notes);
-         shouldPlay = detectCollision({ x, y }, closest);
+       shouldPlay = detectCollision({ x, y }, closest);
       if (shouldPlay) {
         let index = notes.indexOf(closest);
         this.data.notes[index][2] = 0;
@@ -103,7 +103,7 @@ class Game {
         this.data.score--;
         this.data.prevSound = sound;
       }
-      ctx.setTransform(1, 0, 0, 1, 0, 0); //
+      ctx.setTransform(1, 0, 0, 1, 0, 0); 
       ctx.translate(-x, 0);
       if (x >= border) {
         this.data.isLoaded=false

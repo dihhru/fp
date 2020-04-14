@@ -175,5 +175,4 @@ function getUniq() {
   set = Array.from(set)
   return set
 }
-const uniq = getUniq()
-console.log(uniq)
+const uniqSounds = getUniq()

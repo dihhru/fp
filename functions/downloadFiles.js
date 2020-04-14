@@ -1,6 +1,6 @@
 function downloadFiles(resolve) {
   let files = document.getElementById("files");
-  let filesCount = 4 + 3 + 1 + uniq.length + composers.length*2 
+  let filesCount = 4 + 3 + 1 + uniqSounds.length + composers.length*2 
   let uploaded = 0;
   let timer = setInterval(() => {
     let progress = 100 / filesCount * uploaded+'%'
@@ -31,8 +31,8 @@ function downloadFiles(resolve) {
     i2++;
   }
   let i3 = 0;
-  while (i3 < uniq.length) {
-    let sound = uniq[i3];
+  while (i3 < uniqSounds.length) {
+    let sound = uniqSounds[i3];
     let doc = document.createElement("audio");
     doc.src = `sounds/${sound}.wav`;
     doc.id = "s" + i3;;
